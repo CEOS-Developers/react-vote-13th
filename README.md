@@ -1,4 +1,4 @@
-## 4~5주차 미션: React-Vote
+## 4~5주차 미션: React-vote
 
 ---
 
