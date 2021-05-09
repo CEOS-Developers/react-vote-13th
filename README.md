@@ -18,7 +18,9 @@ API Fetching 또한 여러분들이 각 팀에서 프론트엔드로써 개발�
 
 이번 주는 지난 미션들보다 간단하게 제공하려고 합니다.
 
-추가적인 기능들은 차주 미션으로 포함 될 예정이니 우선은 핵심 기능들만 구현해 주시면 됩니다.
+투표 화면과 후보자 목록, 투표하기 기능을 먼저 만들어 주시고
+
+추가적인 기능들은 차주 미션으로 포함 될 예정입니다.
 
 이제 모두 팀이 꾸려졌으니 팀 활동도 계속 함께 하게 될텐데
 
@@ -69,12 +71,14 @@ API Fetching 또한 여러분들이 각 팀에서 프론트엔드로써 개발�
 - 제공되는 api를 이용하여 후보 명단을 가져온다.
 - 화면상에서 보이는 후보 명단은 득표가 많은 순서대로 정렬되어 있어야 한다.
 - 이름과 득표수, 몇위인지, 투표 버튼은 반드시 표시한다.
+- 투표 버튼을 누르면 alert가 뜨면서 투표가 된다.
 
 ## API 주소
 
 ---
 
-후보명단 : (GET) 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
+Candidates : (GET) 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
+Vote : (GET) 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=0'
 
 
 ## 링크 및 참고자료
