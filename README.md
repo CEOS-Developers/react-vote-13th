@@ -73,6 +73,9 @@ API Fetching 또한 여러분들이 각 팀에서 프론트엔드로써 개발�
 - 이름과 득표수, 몇위인지, 투표 버튼은 반드시 표시한다.
 - 투표 버튼을 누르면 alert가 뜨면서 투표가 된다.
 
+<img width="446" alt="프론트 14기 팀장 투표" src="https://user-images.githubusercontent.com/54088062/117558893-d68efc80-b0bb-11eb-8087-2444c99cd45f.png">
+
+
 ## API Doc
 
 ---
