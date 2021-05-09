@@ -77,8 +77,7 @@ API Fetching 또한 여러분들이 각 팀에서 프론트엔드로써 개발�
 
 ---
 
-- Candidates : (GET) 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
-- Vote : (GET) 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=0'
+[API Doc](https://documenter.getpostman.com/view/15686523/TzRRDozw)
 
 
 ## 링크 및 참고자료
