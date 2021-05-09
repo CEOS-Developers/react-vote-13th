@@ -73,11 +73,12 @@ API Fetching 또한 여러분들이 각 팀에서 프론트엔드로써 개발�
 - 이름과 득표수, 몇위인지, 투표 버튼은 반드시 표시한다.
 - 투표 버튼을 누르면 alert가 뜨면서 투표가 된다.
 
-## API 주소
+## API Doc
 
 ---
 
-[API Doc](https://documenter.getpostman.com/view/15686523/TzRRDozw)
+[API를 정리 해 놓은 Postman 문서](https://documenter.getpostman.com/view/15686523/TzRRDozw)
+
 
 
 ## 링크 및 참고자료
