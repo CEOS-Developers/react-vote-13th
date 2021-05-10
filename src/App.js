@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import styled, { createGlobalStyle } from 'styled-components';
 import VoteItem from './VoteItem';
@@ -50,19 +50,6 @@ const Loading = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const candidates = [
-  {
-    id: 0,
-    name: '김영우',
-    voteCount: 3,
-  },
-  {
-    id: 1,
-    name: '정시원',
-    voteCount: 5,
-  },
-];
 
 function voteReducer(state, action) {
   switch (action.type) {
@@ -116,6 +103,7 @@ function App() {
 
   useEffect(() => {
     fetchVotes();
+    // eslint-disable-next-line
   }, []);
 
   const handleVoteButtonClick = async (e) => {
@@ -162,7 +150,7 @@ function App() {
       <GlobalStyle />
       <Wrapper>
         <Container>
-          <Title>13기 프론트 투표</Title>
+          <Title>13기 FE 투표</Title>
           {content}
         </Container>
       </Wrapper>
