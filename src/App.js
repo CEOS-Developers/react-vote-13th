@@ -128,7 +128,7 @@ function App() {
   if (loading) {
     content = <Loading>데이터 로딩중...</Loading>;
   } else if (error) {
-    content = <div>error.name + ": " + error.message</div>;
+    content = <div>{error.name} + ": " + {error.message}</div>;
   } else if (candidates) {
     content = candidates
       .sort((firstEl, secondEl) => secondEl.voteCount - firstEl.voteCount)
