@@ -21,7 +21,7 @@ function asyncReducer(state, action) {
         error: action.error,
       };
     default:
-      throw new Error(`voteReducer: Unhandled action type: ${action.type}`);
+      throw new Error(`asyncReducer: Unhandled action type: ${action.type}`);
   }
 }
 

@@ -8,7 +8,7 @@ function App() {
   const [votesState, getVotes] = useAsync(getVotesCallback, []);
 
   const handleVoteButtonClick = async (e) => {
-    // 투표 버튼의 data-vote-id attribute 값을 가져옴
+    // 투표 버튼(VoteButton)의 data-vote-id attribute 값을 가져옴
     const { voteId } = e.target.dataset;
     getVotes({ voteId });
   };
@@ -22,25 +22,22 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Wrapper>
-        <Container>
-          <Title>13기 FE 투표</Title>
-          {candidates.map((candidate, idx) => (
-            <VoteItem
-              key={idx}
-              rank={idx + 1}
-              candidate={candidate}
-              onVoteButtonClick={handleVoteButtonClick}
-            />
-          ))}
-        </Container>
-      </Wrapper>
+      <Container>
+        <Title>13기 FE 투표</Title>
+        {candidates.map((candidate, idx) => (
+          <VoteItem
+            key={idx}
+            rank={idx + 1}
+            candidate={candidate}
+            onVoteButtonClick={handleVoteButtonClick}
+          />
+        ))}
+      </Container>
     </>
   );
 }
 
 // API CALLERS
-
 async function getVotesCallback(params=null) { // 투표 현황 불러오기
   // argument로 voteId가 주어진 경우, 투표를 먼저 수행한다
   if(params && params.voteId) {
@@ -53,7 +50,7 @@ async function getVotesCallback(params=null) { // 투표 현황 불러오기
   );
   // 불러온 데이터 득표순 정렬
   if(res.data) {
-    // custom compareFunction을 이용, voteCount 순 내림차순 정렬
+    // custom compareFunction을 이용, voteCount 기준 내림차순 정렬
     return res.data.sort((a, b) => ( b.voteCount - a.voteCount ));
   }
   return res.data;
@@ -90,6 +87,16 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     min-height: 100vh;
     background: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  div#root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   a {
     text-decoration: none;
@@ -97,17 +104,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-`;
-
 const Container = styled.div`
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   height: 100%;
   background: white;
   border-radius: 5px;
@@ -126,6 +125,7 @@ const StyledLoading = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
