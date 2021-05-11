@@ -10,10 +10,12 @@ const StyledRank = styled.div`
   align-items: center;
 `;
 
+const MEDAL_COLOR = ["#FFD700", "#C0C0C0", "#CD7F32"]
+
 const Background = styled.div`
   margin-right: 8px;
   & * {
-    color: ${(props) => (props.rank === 1 ? 'gold' : 'gray')};
+    color: ${(props) => (props.rank <= 3 ? MEDAL_COLOR[props.rank - 1] : 'white')};
   }
 `;
 

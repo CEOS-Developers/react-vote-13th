@@ -7,9 +7,12 @@ const StyledVoteItem = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   margin: 5px 0px;
   border-radius: 5px;
+  &:hover {
+    background: #F0F6FC;
+  }
 `;
 
 const ItemInfo = styled.div`
@@ -24,9 +27,21 @@ const Name = styled.div`
   font-size: 1.2em;
 `;
 
-const VoteCount = styled.div``;
+const VoteCount = styled.div`
+  color: gray;
+`;
 
-const VoteButton = styled.button``;
+const VoteButton = styled.button`
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  background: rgb(1, 90, 206);
+  cursor: pointer;
+`;
 
 export default function VoteItem({
   rank,
