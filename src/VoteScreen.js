@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import VoteCount from './VoteCount';
 
 function VoteScreen() {
   const [candidates, setCandidates] = useState(null);
@@ -34,11 +35,10 @@ function VoteScreen() {
         {candidates.map(person => (
           <li key={person.id}>
             {person.name}[{person.voteCount}표]
-            <button>투표</button>
+            <VoteCount vote_id={person.id} fetch={fetchCandidates}>투표</VoteCount>
           </li>
         ))}
       </ul>
-      <button onClick={fetchCandidates}>다시 로딩해보기</button>
     </>
   );
 }
