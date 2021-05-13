@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-function VoteCount(props){
+function VoteButton(props){
     const [count, setCount] = useState(null);
     const CastVote = async () => {
         const id=props.vote_id;
@@ -22,4 +22,4 @@ function VoteCount(props){
   );
 }
 
-export default VoteCount;
+export default VoteButton;

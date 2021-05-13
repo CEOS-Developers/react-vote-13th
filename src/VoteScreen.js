@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import VoteCount from './VoteCount';
+import VoteButton from './VoteButton';
+
+
 
 function VoteScreen() {
   const [candidates, setCandidates] = useState(null);
@@ -15,6 +17,7 @@ function VoteScreen() {
       const response = await axios.get(
         'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
       );
+      response.data.sort((a, b) => ( b.voteCount - a.voteCount ));
       setCandidates(response.data);
     } catch (e) {
       setError(e);
@@ -32,14 +35,15 @@ function VoteScreen() {
   return (
     <>
       <ul>
-        {candidates.map(person => (
+        {candidates.map((person, index) => (
           <li key={person.id}>
-            {person.name}[{person.voteCount}표]
-            <VoteCount vote_id={person.id} fetch={fetchCandidates}>투표</VoteCount>
+            <rank> {index+1}위</rank>
+            {person.name}[{person.voteCount}표]         
+            <VoteButton vote_id={person.id} fetch={fetchCandidates}>투표</VoteButton>
           </li>
         ))}
       </ul>
-    </>
+      </>
   );
 }
 
