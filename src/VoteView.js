@@ -30,17 +30,24 @@ function VoteView() {
     return b.voteCount - a.voteCount;
   });
   return (
-    <div>
-      <h1>CEOS 13기 FRONT 운영진 투표 &gt;.0</h1>
+    <Container>
+      <Title>CEOS 13기 FRONT 운영진 투표 &gt;.0</Title>
+      <Container>순위 이름 득표수</Container>
       {sortedCandidates.map((candidate) => (
         <CandidateVotes
           candidate={candidate}
           key={candidate.id}
           flipVoteFlag={flipVoteFlag}
+          rank={sortedCandidates.indexOf(candidate) + 1}
         />
       ))}
-    </div>
+    </Container>
   );
 }
 
 export default VoteView;
+
+const Container = styled.div`
+  text-align: center;
+`;
+const Title = styled.h1``;
