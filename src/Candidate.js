@@ -11,17 +11,19 @@ const Candidate = ({ rank }) => {
   const { data, dispatch } = useContext(VoteContext);
 
   const handleOnClick = async () => {
+    let aler;
     dispatch({ type: GET_VOTE_REQUEST });
     try {
       const response = await axios.get(
         `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${data[rank].id}
             `
       );
-      console.log(response.data);
+      aler = response.data;
       dispatch({ type: GET_VOTE_SUCCESS, data: response.data });
     } catch (err) {
       dispatch({ type: GET_VOTE_FAILURE, error: err.response });
     }
+    alert(aler);
   };
 
   return (
