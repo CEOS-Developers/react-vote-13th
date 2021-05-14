@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   GET_VOTE_FAILURE,
   GET_VOTE_REQUEST,
@@ -9,11 +9,6 @@ import {
 
 const Candidate = ({ rank }) => {
   const { data, dispatch } = useContext(VoteContext);
-
-  useEffect(() => {
-    // console.log(rank);
-    // console.log(data);
-  }, []);
 
   const handleOnClick = async () => {
     dispatch({ type: GET_VOTE_REQUEST });

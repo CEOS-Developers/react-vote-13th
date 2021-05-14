@@ -101,7 +101,7 @@ const Vote = () => {
       );
       dispatch({ type: GET_CANDIDATES_SUCCESS, data: response.data });
     } catch (err) {
-      dispatch({ type: GET_CANDIDATES_FAILURE, error: err.response });
+      dispatch({ type: GET_CANDIDATES_FAILURE, error: err.response.data });
     }
   };
 
@@ -115,7 +115,7 @@ const Vote = () => {
       <VoteContext.Provider value={value}>
         <StyledUl>
           {state.data.map((v, i) => (
-            <Candidate rank={i} />
+            <Candidate key={data[i].id} rank={i} />
           ))}
         </StyledUl>
       </VoteContext.Provider>
