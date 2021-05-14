@@ -31,9 +31,9 @@ const Candidate = ({ rank }) => {
 
   return (
     <li>
-      <span>{rank + 1}위 </span>
+      <span>{rank + 1}위: </span>
       <span>{data[rank].name}</span>
-      <span>{data[rank].voteCount}</span>
+      <span>[{data[rank].voteCount}표]</span>
       <button onClick={handleOnClick}>투표</button>
     </li>
   );

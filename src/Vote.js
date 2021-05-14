@@ -1,6 +1,18 @@
 import React, { useReducer, createContext, useEffect, useMemo } from 'react';
 import Candidate from './Candidate.js';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const StyledUl = styled.ul`
+  list-style: none;
+  text-align: center;
+`;
+
+const Title = styled.div`
+  color: pink;
+  font-size: 25px;
+  text-align: center;
+`;
 
 export const VoteContext = createContext({
   data: [],
@@ -98,13 +110,16 @@ const Vote = () => {
   }, [flag]);
 
   return (
-    <VoteContext.Provider value={value}>
-      <ul>
-        {state.data.map((v, i) => (
-          <Candidate rank={i} />
-        ))}
-      </ul>
-    </VoteContext.Provider>
+    <>
+      <Title>대망의 CEOS 프로튼엔드 14기 개발팀장 투표</Title>
+      <VoteContext.Provider value={value}>
+        <StyledUl>
+          {state.data.map((v, i) => (
+            <Candidate rank={i} />
+          ))}
+        </StyledUl>
+      </VoteContext.Provider>
+    </>
   );
 };
 
