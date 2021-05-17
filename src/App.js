@@ -18,7 +18,7 @@ function App() {
     const result = await axios.get(
       'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
     );
-    setUserList(result.data);
+    sortUserList(result.data);
   }
 
   async function vote(id) {
@@ -28,13 +28,20 @@ function App() {
         params: { id },
       }
     );
-    const newUserList = [...userList];
-    for (const user of newUserList) {
+    for (const user of userList) {
       if (user.id == id) {
         user.voteCount++;
       }
     }
-    setUserList(newUserList);
+    sortUserList(userList);
+  }
+
+  function sortUserList(list) {
+    const newList = [...list];
+    newList.sort(function (a, b) {
+      return a.voteCount < b.voteCount ? 1 : -1;
+    });
+    setUserList(newList);
   }
 
   useEffect(() => {
