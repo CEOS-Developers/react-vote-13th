@@ -21,12 +21,11 @@ function App() {
   async function clickVote(key, voteCount){
     const config = {
       params : {
-        id: key, //id가 0번인 사람을 투표해주세요
-        voteCount: voteCount + 1
+        id: key //id가 0번인 사람을 투표해주세요
       }
     }
     //투표할 때 어떻게 한 표씩 증가시킬거냐- 화면 갱신
-    const vote = await axios.get('http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${id}', config)
+    const vote = await axios.get(`http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote`, config)
     setData(vote.data);
     
   }
@@ -39,7 +38,7 @@ function App() {
     <div >{
       data.map(item => {
        return <p key={item.id}> {item.name} : {item.voteCount} 
-        <button onClick={clickVote(item.id, item.voteCount)}>vote</button>
+        <button onClick={() =>clickVote(item.id, item.voteCount)}>vote</button>
         </p>
       })}
     </div>
