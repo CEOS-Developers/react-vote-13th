@@ -1,7 +1,7 @@
 import React from 'react';
-import useSignup from './useSignup';
+import { useSignup } from './authHooks';
 
-const LoginView = () => {
+const SignupView = () => {
   const [signupValue, setSignupValue, handleSubmit] = useSignup();
 
   return (
@@ -38,4 +38,4 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+export default SignupView;
