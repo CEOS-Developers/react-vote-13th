@@ -1,5 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const axiosConfig = {
   method: 'get',
@@ -7,11 +8,13 @@ const axiosConfig = {
   header: {},
 };
 
-const axiosVoteConfig = (id) => {
+const axiosVoteConfig = (id, token) => {
   return {
     method: 'get',
     url: `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${id}`,
-    header: {},
+    headers: {
+      Authorization: token,
+    },
   };
 };
 
@@ -36,6 +39,7 @@ const voteReducer = (state, action) => {
 
 const useVote = () => {
   const [candidateList, dispatch] = useReducer(voteReducer, iniitialState);
+  const [cookie, setCookie] = useCookies(['JWTToken']);
 
   const fetchAPI = async () => {
     await axios(axiosConfig).then((res) => {
@@ -44,7 +48,7 @@ const useVote = () => {
   };
 
   const voteToCandidate = (id) => {
-    axios(axiosVoteConfig(id))
+    axios(axiosVoteConfig(id, cookie['JWTToken']))
       .then((res) => {
         alert(res.data);
         fetchAPI();

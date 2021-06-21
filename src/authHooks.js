@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useReducer } from 'react';
+import { useCookies } from 'react-cookie';
 import { authFieldReducer, useAxiosConfig } from './authMixin';
 
 const initialSignupFormValue = {
@@ -48,6 +49,7 @@ const useSignin = () => {
     initialSigninValue
   );
 
+  const [cookie, setCookie] = useCookies(['JWTToken']);
   const [axiosConfig, axiosDispatch] = useAxiosConfig();
 
   const handleLogin = (e) => {
@@ -55,8 +57,8 @@ const useSignin = () => {
 
     axios(axiosConfig)
       .then((res) => {
-        alert(res.data);
         window.location.replace('/vote');
+        setCookie('JWTToken', res.data);
       })
       .catch((err) => {
         alert(err.data);

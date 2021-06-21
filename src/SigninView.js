@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSignin } from './authHooks';
 
 const SigninView = () => {
-  const [signinValue, setSigninValue, handleLogin] = useSignin();
+  const [signinValue, setSigninValue, handleLogin, userToken] = useSignin();
 
   return (
     <form onSubmit={handleLogin}>
