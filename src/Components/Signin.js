@@ -28,8 +28,7 @@ export default function Signin() {
     } else {
       throw Error('No params specified')
     }
-    return false;
-  },[setCookie]);
+  },[setCookie, history]);
 
   const [signinState, signin] = useAsync(signinCallback, [], false);
   const { loading: signinLoading, data: signinData, error: signinError } = signinState;
