@@ -25,7 +25,7 @@ function asyncReducer(state, action) {
   }
 }
 
-export default function useAsync(callback, deps=[]) {
+export default function useAsync(callback, deps=[], initialLoad=false) {
   const [state, dispatch] = useReducer(asyncReducer, {
     loading: false,
     data: null,
@@ -48,7 +48,7 @@ export default function useAsync(callback, deps=[]) {
   };
 
   useEffect(() => {
-    fetchData();
+    if(initialLoad) fetchData();
     //eslint-disable-next-line
   }, deps)
 
