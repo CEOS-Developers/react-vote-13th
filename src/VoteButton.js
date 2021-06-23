@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import SignInPage from './SignInPage';
 
 const StyledButton = styled.button`
   display: inline-flex;
@@ -21,20 +20,25 @@ function VoteButton(props) {
   const CastVote = async () => {
     const id = props.vote_id;
     try {
+      console.log(localStorage.getItem);
       const data = await axios.get(
         `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${id}`,
         {
           headers: {
-            Authorization: SignInPage.responseData,
+            Authorization: localStorage.getItem('response'),
           },
         }
       );
       setCount(data);
+      alert('투표가 반영되었습니다.');
     } catch (e) {
-      alert('투표 에러가 발생했습니다.');
+      const statusCode = parseInt(e.message.split(' ').pop());
+      if (statusCode === 401) {
+        alert('인증되지 않은 사용자입니다. 로그인을 먼저 진행해주세요.');
+        return;
+      } else alert('투표 에러가 발생했습니다.');
     }
     props.fetch();
-    alert('투표가 반영되었습니다.');
   };
   return <StyledButton onClick={CastVote}>투표</StyledButton>;
 }

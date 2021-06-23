@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
@@ -14,10 +15,6 @@ const Wrapper = styled.div`
     margin-top: 12px;
     margin-bottom: 12px;
   }
-
-  & rank {
-    margin-right: 1rem;
-  }
 `;
 
 const Header = styled.div`
@@ -30,7 +27,7 @@ function VotePage() {
   const [candidates, setCandidates] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const history = useHistory();
   const fetchCandidates = async () => {
     try {
       setError();
@@ -55,6 +52,10 @@ function VotePage() {
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!candidates) return null;
 
+  const handleClickLogOut = (event) => {
+    localStorage.removeItem('response');
+    history.push('/');
+  };
   return (
     <Wrapper>
       <Header>대망의 CEOS 14기 프론트 팀장 투표</Header>
@@ -69,6 +70,24 @@ function VotePage() {
           </VoteButton>
         </li>
       ))}
+      {localStorage.getItem('response') ? (
+        <button onClick={handleClickLogOut}>로그아웃</button>
+      ) : (
+        <button
+          onClick={() => {
+            history.push('/');
+          }}
+        >
+          로그인
+        </button>
+      )}
+      <button
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        돌아가기
+      </button>
     </Wrapper>
   );
 }

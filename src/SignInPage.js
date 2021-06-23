@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { useCookies } from 'react-cookie';
-import VotePage from './VotePage';
 
 function SignInPage() {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [cookies, setCookie, removeCookie] = useCookies(['rememberToken']);
-  const [responseData, setResponseData] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const Email = useRef();
+  const Password = useRef();
 
   const onChange = (event) => {
     const {
@@ -33,6 +30,8 @@ function SignInPage() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    Email.current.value = '';
+    Password.current.value = '';
     postSignIn();
   };
 
@@ -44,12 +43,9 @@ function SignInPage() {
 
       setError();
       const res = await axios.post(url, info);
-      setResponseData(res.data);
       setLoading(true);
-      setIsLoggedIn(true);
-      setResponseData(res.data);
+      localStorage.setItem('response', res.data);
       alert('로그인 성공!');
-      history.push('/VotePage');
     } catch (e) {
       const statusCode = parseInt(e.message.split(' ').pop());
       switch (statusCode) {
@@ -68,26 +64,40 @@ function SignInPage() {
   };
   if (loading) return <div>로그인 처리중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  return (
+  return localStorage.getItem('response') ? (
+    <div>
+      <button
+        onClick={() => {
+          localStorage.removeItem('response');
+          history.push('/');
+        }}
+      >
+        로그아웃
+      </button>
+      <Link to="/VotePage">
+        <button>Vote Page</button>
+      </Link>
+    </div>
+  ) : (
     <div>
       <form onSubmit={onSubmit}>
         <input
           name="email"
           type="text"
           placeholder="Email"
-          value={userEmail}
           onChange={onChange}
+          ref={Email}
         />
         <input
           name="password"
           type="password"
           placeholder="Password"
-          value={userPassword}
           onChange={onChange}
+          ref={Password}
         />
         <input type="submit" value="Log In" />
       </form>
-      <Link to="/SignUpLink">
+      <Link to="/SignUpPage">
         <button>Sign Up</button>
       </Link>
       <Link to="/VotePage">
