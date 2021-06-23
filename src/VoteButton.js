@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import SignInPage from './SignInPage';
 
 const StyledButton = styled.button`
   display: inline-flex;
@@ -21,7 +22,12 @@ function VoteButton(props) {
     const id = props.vote_id;
     try {
       const data = await axios.get(
-        `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${id}`
+        `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${id}`,
+        {
+          headers: {
+            Authorization: SignInPage.responseData,
+          },
+        }
       );
       setCount(data);
     } catch (e) {
