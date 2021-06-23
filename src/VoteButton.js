@@ -10,9 +10,8 @@ const StyledButton = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  margin-left: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  margin-left: 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
 `;
 
 function VoteButton(props) {
@@ -34,7 +33,7 @@ function VoteButton(props) {
     } catch (e) {
       const statusCode = parseInt(e.message.split(' ').pop());
       if (statusCode === 401) {
-        alert('인증되지 않은 사용자입니다. 로그인을 먼저 진행해주세요.');
+        alert('로그인을 먼저 진행해주세요.');
         return;
       } else alert('투표 에러가 발생했습니다.');
     }

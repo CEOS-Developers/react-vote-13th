@@ -4,25 +4,6 @@ import axios from 'axios';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  font-size: 23px;
-  & li {
-    margin-top: 12px;
-    margin-bottom: 12px;
-  }
-`;
-
-const Header = styled.div`
-  font-size: 32px;
-  color: #b3b3ff;
-  padding: 2rem;
-`;
-
 function VotePage() {
   const [candidates, setCandidates] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -57,39 +38,90 @@ function VotePage() {
     history.push('/');
   };
   return (
-    <Wrapper>
-      <Header>대망의 CEOS 14기 프론트 팀장 투표</Header>
-      {candidates.map((person, index) => (
-        <li key={person.id}>
-          <rank>
-            {index + 1}위 {person.name}
-          </rank>
-          [{person.voteCount}표]
-          <VoteButton vote_id={person.id} fetch={fetchCandidates}>
-            투표
-          </VoteButton>
-        </li>
-      ))}
-      {localStorage.getItem('response') ? (
-        <button onClick={handleClickLogOut}>로그아웃</button>
-      ) : (
-        <button
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          로그인
-        </button>
-      )}
-      <button
-        onClick={() => {
-          history.push('/');
-        }}
-      >
-        돌아가기
-      </button>
-    </Wrapper>
+    <VoteTemplateBlock>
+      <Container>
+        <Header>대망의 CEOS 14기 프론트 팀장 투표</Header>
+        {candidates.map((person, index) => (
+          <li key={person.id}>
+            <text>{index + 1}위</text>
+            <text>{person.name}</text>
+            <text>[{person.voteCount}표]</text>
+            <VoteButton vote_id={person.id} fetch={fetchCandidates}>
+              투표
+            </VoteButton>
+          </li>
+        ))}
+        <div>
+          {localStorage.getItem('response') ? (
+            <StyledButton onClick={handleClickLogOut}>로그아웃</StyledButton>
+          ) : (
+            <StyledButton
+              onClick={() => {
+                history.push('/');
+              }}
+            >
+              로그인
+            </StyledButton>
+          )}
+          <StyledButton
+            onClick={() => {
+              history.push('/');
+            }}
+          >
+            돌아가기
+          </StyledButton>
+        </div>
+      </Container>
+    </VoteTemplateBlock>
   );
 }
+
+const VoteTemplateBlock = styled.div`
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #cbc3e3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  font-size: 23px;
+  background: white;
+  & li {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  & div {
+    flex-direction: row;
+  }
+  & text {
+    margin-right: 2rem;
+  }
+`;
+
+const Header = styled.div`
+  font-size: 32px;
+  color: #b3b3ff;
+  padding: 2rem;
+`;
+
+const StyledButton = styled.button`
+  width: 7.5rem;
+  height: 3rem;
+  margin: 2rem;
+  margin-top: 3rem;
+  border-radius: 2px;
+  border: none;
+  background: #e6e6e6;
+`;
 
 export default VotePage;
