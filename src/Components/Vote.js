@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,6 +10,14 @@ export default function Vote() {
   const [cookie, , removeCookie] = useCookies(['vote-13th-token', 'vote-13th-email']);
   const history = useHistory();
   const castVoteResultRef = useRef(null);
+  let castVoteResultTimeout = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(castVoteResultTimeout.current);
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const getVoteCountCallback = useCallback(async () => {
     const url = 'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates';
@@ -42,7 +50,7 @@ export default function Vote() {
     await castVote({voteId});
     if (castVoteResultRef.current) {
       castVoteResultRef.current.style.visibility = 'visible';
-      setTimeout(() => { castVoteResultRef.current.style.visibility = 'hidden'; }, 4000)
+      castVoteResultTimeout.current = setTimeout(() => { castVoteResultRef.current.style.visibility = 'hidden'; }, 4000)
     }
     getVotes();
   }
