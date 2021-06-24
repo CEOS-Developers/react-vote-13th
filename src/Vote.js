@@ -22,6 +22,7 @@ export const VoteContext = createContext({
 
 const initialState = {
   data: [],
+  flag: false,
   getCandidatesLoading: false,
   getCandidatesDone: false,
   getCandidatesError: null,

@@ -19,7 +19,7 @@ const Candidate = ({ rank }) => {
             `
       );
       aler = response.data;
-      dispatch({ type: GET_VOTE_SUCCESS, data: response.data });
+      dispatch({ type: GET_VOTE_SUCCESS });
     } catch (err) {
       dispatch({ type: GET_VOTE_FAILURE, error: err.response });
     }
