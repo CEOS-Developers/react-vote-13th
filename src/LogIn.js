@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router';
-
+import { useCookies } from 'react-cookie';
 const LogIn = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [cookies, setCookie, removeCookie] = useCookies(['Token']);
   const handleToSignUp = () => {
     history.push('/signup');
   };
@@ -26,8 +26,9 @@ const LogIn = () => {
           password: password,
         }
       );
-
-      console.log(response);
+      console.log(response.data);
+      setCookie('Token', response.data, { path: '/' });
+      console.log(cookies);
       history.push('/vote');
     } catch (err) {
       console.log(err);

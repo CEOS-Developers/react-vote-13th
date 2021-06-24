@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router';
 import {
   GET_VOTE_FAILURE,
   GET_VOTE_REQUEST,
@@ -9,14 +11,18 @@ import {
 
 const Candidate = ({ rank }) => {
   const { data, dispatch } = useContext(VoteContext);
-
+  const [cookie, setCookie, removeCookie] = useCookies(['Token']);
   const handleOnClick = async () => {
     let aler;
+    console.log(cookie);
     dispatch({ type: GET_VOTE_REQUEST });
     try {
       const response = await axios.get(
         `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${data[rank].id}
-            `
+        `,
+        {
+          headers: { Authorization: cookie.Token },
+        }
       );
       aler = response.data;
       dispatch({ type: GET_VOTE_SUCCESS });
@@ -27,12 +33,14 @@ const Candidate = ({ rank }) => {
   };
 
   return (
-    <li>
-      <span>{rank + 1}위: </span>
-      <span>{data[rank].name}</span>
-      <span>[{data[rank].voteCount}표]</span>
-      <button onClick={handleOnClick}>투표</button>
-    </li>
+    <>
+      <li>
+        <span>{rank + 1}위: </span>
+        <span>{data[rank].name}</span>
+        <span>[{data[rank].voteCount}표]</span>
+        <button onClick={handleOnClick}>투표</button>
+      </li>
+    </>
   );
 };
 

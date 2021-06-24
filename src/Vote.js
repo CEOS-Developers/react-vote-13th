@@ -2,6 +2,8 @@ import React, { useReducer, createContext, useEffect, useMemo } from 'react';
 import Candidate from './Candidate.js';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router';
 
 const StyledUl = styled.ul`
   list-style: none;
@@ -92,6 +94,8 @@ const reducer = (state, action) => {
 const Vote = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { data, flag } = state;
+  const [cookies, setCookie, removeCookie] = useCookies(['Token']);
+  const history = useHistory();
   const value = useMemo(() => ({ data, dispatch }), [data]);
 
   const fetchCandidates = async () => {
@@ -102,7 +106,7 @@ const Vote = () => {
       );
       dispatch({ type: GET_CANDIDATES_SUCCESS, data: response.data });
     } catch (err) {
-      dispatch({ type: GET_CANDIDATES_FAILURE, error: err.response.data });
+      dispatch({ type: GET_CANDIDATES_FAILURE, error: err.response });
     }
   };
 
@@ -110,6 +114,10 @@ const Vote = () => {
     fetchCandidates();
   }, [flag]);
 
+  const handleButtonClick = () => {
+    removeCookie('Token');
+    history.push('/');
+  };
   return (
     <>
       <Title>대망의 CEOS 프로튼엔드 14기 개발팀장 투표</Title>
@@ -119,6 +127,7 @@ const Vote = () => {
             <Candidate key={data[i].id} rank={i} />
           ))}
         </StyledUl>
+        <button onClick={handleButtonClick}>로그아웃</button>
       </VoteContext.Provider>
     </>
   );
