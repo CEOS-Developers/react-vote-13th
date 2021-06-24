@@ -4,12 +4,15 @@ import axios from 'axios';
 const url =
   'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?';
 
-function CandidateVotes({ candidate, flipVoteFlag, rank }) {
+function CandidateVotes({ candidate, flipVoteFlag, rank, loginCookie }) {
   function handleVoteButtonClick() {
     axios
       .get(url, {
         params: {
           id: candidate.id,
+        },
+        headers: {
+          authorization: `${loginCookie.loginCookie}`,
         },
       })
       .then(function (response) {
@@ -17,7 +20,7 @@ function CandidateVotes({ candidate, flipVoteFlag, rank }) {
         flipVoteFlag();
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
   }
   return (
