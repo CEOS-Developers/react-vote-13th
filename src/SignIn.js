@@ -1,24 +1,143 @@
 import styled from 'styled-components';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 
 var axios = require('axios');
 
-const Box = styled.form`
+const Top = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    width:100%;
+    height: 100vh;
+    background-color: rgb(150, 144, 138);
+    justify-content: space-between;
+`;
+
+const Tag = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0.5;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+`;
+
+const Container = styled.div`
+    flex-grow: 9.5;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    width:100%;
+    height: 100vh;
+    background-color: rgb(150, 144, 138);
+    justify-content: center;
+    align-items: center;
+`;
+const IndexImg = styled.img`
+    margin-right: 6vw;
+    width: 23em;
+    height: 23em;
+`;
+
+const TagLabel = styled.label`
+    font-family: NewYork;
+    font-weight: bold;
+    letter-spacing: -1px;
+    /* -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: 0 0;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: 0 0;
+    -o-transform: rotate(-90deg);
+    -o-transform-origin: 0 0;
+    transform: rotate(-90deg);
+    transform-origin: 0 0; */
+
+`;
+
+const TagImg = styled.img`
+    width: 1em; //14px이 적당
+    margin-right: 0.7vw;
+    margin-bottom: 30px;
+    margin-top: 60px;
+
+`;
+
+const Label = styled.label`
+    font-family: serif; //여기 어뜨캄
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 7px;
+    letter-spacing: -1px;
+`;
+
+const LabelBottom = styled.label`
+    font-family: serif; //여기 어뜨캄
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 5px;
+    letter-spacing: -1px;
+`;
+
+const Box = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
+    justify-content: space-around;
+`;
+
+const Form = styled.form`
+  margin-top:20px;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
 `;
 
 const Input = styled.input`
   width: 200px;
+  margin-bottom: 3px;
+  border: none;
+  background: transparent;
+  border-bottom: 0.8px solid;
+  &:focus {
+      outline: none;
+  }
 `;
 
 const Button = styled.button`
-  margin-top: 5px;
-  width: 60px;
+  font-family: serif;
+  font-weight: bold;
+  font-size: 1em;
+  letter-spacing: -1px;
+  background: transparent;
+  width: 70px;
+  border: none;
+  margin-top: 10px;
+  margin-left: 0;
+  /* margin-bottom: 15px; */
+  padding-left: 0;
+  text-align: left;
+  /* border-radius: 15px; */
+`;
+
+const ButtonSignUp = styled.button`
+    font-family: serif;
+    font-weight: bold;
+    color: white;
+    background: black;
+    border-radius: 15px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 3px;
+    padding-bottom: 5px;
+    border: none;
+    margin-left: 10px;
+    margin-top: 15px;
 `;
 
 export default function SignIn() {
@@ -73,23 +192,42 @@ export default function SignIn() {
     }
 
     return (
-        <Box onSubmit = {handleSubmit}>
-            <label>Email</label>
-            <Input
-                type='email'
-                value={ID}
-                onChange={handleChangeInput_ID}
-            />
-            <label>Password</label>
-            <Input
-                type='password'
-                value={PW}
-                onChange={handleChangeInput_PW}
-            />
-            <Button type='submit'> Submit! </Button>
-            <Link to = {`/vote`}>
-                <Button> Back </Button>
-            </Link>
-        </Box>
+        <Top>
+            <Container>
+            <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
+                <Box>
+                    <Form onSubmit = {handleSubmit}>
+                        <Label>ID</Label>
+                        <Input
+                            type='email'
+                            value={ID}
+                            onChange={handleChangeInput_ID}
+                        />
+                        <Label>Password</Label>
+                        <Input
+                            type='password'
+                            value={PW}
+                            onChange={handleChangeInput_PW}
+                        />
+                        <Link to = {`/vote`}>
+                            <Button type='submit'> sign in ! </Button>
+                        </Link>
+                    </Form>
+                    <Form>
+                        <LabelBottom>* if you don't have an account</LabelBottom>
+                        <LabelBottom>&nbsp;&nbsp;press the button below</LabelBottom>
+                        <Link to = {`/signup`}>
+                            <ButtonSignUp> create account </ButtonSignUp>
+                        </Link>
+                    </Form>
+                </Box>
+            </Container>
+            <Tag>
+                {/* <TagLabel>CEOS</TagLabel> */}
+                <TagImg src={process.env.PUBLIC_URL + './design/tag_2021.png'} />
+                <TagImg src={process.env.PUBLIC_URL + './design/tag_front.png'} />
+                <TagImg src={process.env.PUBLIC_URL + './design/tag_ceos.png'} />
+            </Tag>
+        </Top>
     )
 }
