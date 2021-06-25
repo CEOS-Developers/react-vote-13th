@@ -7,7 +7,7 @@ import SignUpPage from './SignUpPage';
 function App() {
   return (
     <div>
-      <Route path="/" component={SignInPage} exact={true} />
+      <Route exact path="/" component={SignInPage} />
       <Route path="/SignUpPage" component={SignUpPage} />
       <Route path="/VotePage" component={VotePage} />
     </div>

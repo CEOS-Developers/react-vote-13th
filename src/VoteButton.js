@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
@@ -21,7 +21,6 @@ const getWithExpiry = (key) => {
 
 function VoteButton(props) {
   const history = useHistory();
-  const [count, setCount] = useState(null);
   const CastVote = async () => {
     const id = props.vote_id;
     try {
@@ -33,7 +32,6 @@ function VoteButton(props) {
           },
         }
       );
-      setCount(data);
       alert('투표가 반영되었습니다.');
     } catch (e) {
       const statusCode = parseInt(e.message.split(' ').pop());
@@ -48,8 +46,6 @@ function VoteButton(props) {
   return <StyledButton onClick={CastVote}>투표</StyledButton>;
 }
 
-export default VoteButton;
-
 const StyledButton = styled.button`
   display: inline-flex;
   border: none;
@@ -61,3 +57,5 @@ const StyledButton = styled.button`
   margin-left: 1rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
 `;
+
+export default VoteButton;

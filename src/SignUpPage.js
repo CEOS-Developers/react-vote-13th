@@ -45,8 +45,8 @@ function SignUpPage() {
       const url =
         'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/signup';
       const info = { email: userEmail, password: userPassword, name: userName };
-      setError();
-      const res = await axios.post(url, info);
+      setError(null);
+      await axios.post(url, info);
       setLoading(true);
       alert('회원가입이 성공적으로 완료되었습니다!');
     } catch (e) {

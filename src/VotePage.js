@@ -11,14 +11,14 @@ function VotePage() {
   const history = useHistory();
   const fetchCandidates = async () => {
     try {
-      setError();
-      setCandidates();
+      setError(null);
+      setCandidates(null);
       setLoading(true);
-      const response = await axios.get(
+      const res = await axios.get(
         'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
       );
-      response.data.sort((a, b) => b.voteCount - a.voteCount);
-      setCandidates(response.data);
+      res.data.sort((a, b) => b.voteCount - a.voteCount);
+      setCandidates(res.data);
     } catch (e) {
       setError(e);
     }
@@ -34,7 +34,7 @@ function VotePage() {
   if (!candidates) return null;
 
   const handleClickLogOut = () => {
-    localStorage.removeItem('response');
+    localStorage.removeItem('currentUser');
     history.push('/');
   };
   return (
