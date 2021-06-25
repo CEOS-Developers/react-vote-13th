@@ -33,56 +33,41 @@ const StyledInput = styled.input`
   padding: 0 1.1em;
 `;
 
-function Sginup() {
+function Signin({ setJwt }) {
   const email = useRef();
   const pw = useRef();
-  const pwCheck = useRef();
-  const name = useRef();
   const history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const emailText = email.current.value;
     const pwText = pw.current.value;
-    const pwCheckText = pwCheck.current.value;
-    const nameText = name.current.value;
 
     if (emailText === '') {
       alert('이메일을 입력해주세요');
       return;
     }
 
-    if (pwText === '' || pwCheckText === '') {
+    if (pwText === '') {
       alert('비밀번호를 입력해주세요');
-      return;
-    }
-
-    if (pwText !== pwCheckText) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-
-    if (nameText === '') {
-      alert('이름을 입력해주세요');
       return;
     }
     try {
       const result = await axios.post(
-        'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/signup',
+        'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/signin',
         {
           email: emailText,
           password: pwText,
-          name: nameText,
         }
       );
 
       if (result) {
+        setJwt(result.data);
         history.push('/');
       }
     } catch (e) {
-      if (e.response.status === 409) {
-        alert('이미 존재하는 이메일 입니다.');
-      }
+      console.log(e);
+      alert('로그인에 실패하였습니다.');
     }
   };
   return (
@@ -90,12 +75,10 @@ function Sginup() {
       <StyledForm onSubmit={onSubmit}>
         <StyledInput placeholder="Email" ref={email} />
         <StyledInput type="password" placeholder="PW" ref={pw} />
-        <StyledInput type="password" placeholder="PW 확인" ref={pwCheck} />
-        <StyledInput placeholder="이름" ref={name} />
-        <StyledInput type="submit" value="회원가입" />
+        <StyledInput type="submit" value="로그인" />
       </StyledForm>
     </StyledContainer>
   );
 }
 
-export default Sginup;
+export default Signin;
