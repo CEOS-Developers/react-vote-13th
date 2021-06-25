@@ -36,6 +36,15 @@ function SignInPage() {
     postSignIn();
   };
 
+  const setWithExpiry = (key, value, ttl) => {
+    const now = new Date();
+    const item = {
+      value: value,
+      expiry: now.getTime() + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+  };
+
   const postSignIn = async () => {
     try {
       const url =
@@ -45,7 +54,7 @@ function SignInPage() {
       setError();
       const res = await axios.post(url, info);
       setLoading(true);
-      localStorage.setItem('response', res.data);
+      setWithExpiry('currentUser', res.data, 10000);
     } catch (e) {
       const statusCode = parseInt(e.message.split(' ').pop());
       switch (statusCode) {
@@ -68,11 +77,11 @@ function SignInPage() {
     <SignInTemplateBlock>
       <StyledHeader>14기 프론트 팀장 투표</StyledHeader>
       <StyledForm onSubmit={onSubmit}>
-        {localStorage.getItem('response') ? (
+        {localStorage.getItem('currentUser') ? (
           <>
             <StyledButton
               onClick={() => {
-                localStorage.removeItem('response');
+                localStorage.removeItem('currentUser');
                 history.push('/');
               }}
             >

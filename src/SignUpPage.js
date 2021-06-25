@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function SignUpPage() {
@@ -44,7 +45,6 @@ function SignUpPage() {
       const url =
         'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/signup';
       const info = { email: userEmail, password: userPassword, name: userName };
-
       setError();
       const res = await axios.post(url, info);
       setLoading(true);
@@ -73,6 +73,7 @@ function SignUpPage() {
     <SignUpTemplateBlock>
       <StyledHeader>14기 프론트 팀장 투표</StyledHeader>
       <StyledForm onSubmit={onSubmit}>
+        <StyledLink to="/">Click here to Log In</StyledLink>
         <StyledInput
           name="email"
           type="text"
@@ -127,6 +128,12 @@ const StyledForm = styled.form`
   padding: 2rem;
   background: white;
   border-radius: 3px;
+`;
+
+const StyledLink = styled(Link)`
+  font-size: 1rem;
+  float: right;
+  margin-bottom: 1rem;
 `;
 
 const StyledInput = styled.input`

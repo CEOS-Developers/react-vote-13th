@@ -33,7 +33,7 @@ function VotePage() {
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!candidates) return null;
 
-  const handleClickLogOut = (event) => {
+  const handleClickLogOut = () => {
     localStorage.removeItem('response');
     history.push('/');
   };
@@ -52,7 +52,7 @@ function VotePage() {
           </li>
         ))}
         <div>
-          {localStorage.getItem('response') ? (
+          {localStorage.getItem('currentUser') ? (
             <StyledButton onClick={handleClickLogOut}>로그아웃</StyledButton>
           ) : (
             <StyledButton
