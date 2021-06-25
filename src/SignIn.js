@@ -23,7 +23,7 @@ export default function SignIn({ setLoginCookie }) {
           email: email,
           password: password,
         });
-        alert(response.data);
+        alert('로그인 완료! 환영합니다');
         setLoginCookie('loginCookie', response.data);
         history.push('/');
       } catch (error) {
