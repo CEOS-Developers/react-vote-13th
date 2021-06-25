@@ -9,9 +9,17 @@ const url =
 function VoteView({ loginCookie, removeLoginCookie }) {
   const [candidates, setCandidates] = useState([]);
   const [voteFlag, setVoteFlag] = useState(false);
+  const [isLogined, setIsLogined] = useState(Boolean(loginCookie.loginCookie));
 
   function flipVoteFlag() {
     setVoteFlag(!voteFlag);
+  }
+  function handleLogoutButton() {
+    if (isLogined) {
+      removeLoginCookie('loginCookie');
+      setIsLogined(false);
+      alert('로그아웃 되었습니다.');
+    } else alert('로그인이 되어있지 않습니다.');
   }
 
   useEffect(() => {
@@ -30,6 +38,7 @@ function VoteView({ loginCookie, removeLoginCookie }) {
   const sortedCandidates = candidates.sort((a, b) => {
     return b.voteCount - a.voteCount;
   });
+
   return (
     <Container>
       <Title>CEOS 13기 FRONT 운영진 투표 &gt;.0</Title>
@@ -49,6 +58,7 @@ function VoteView({ loginCookie, removeLoginCookie }) {
       <Link to="/signin">
         <button>로그인</button>
       </Link>
+      <button onClick={handleLogoutButton}>로그아웃</button>
     </Container>
   );
 }
