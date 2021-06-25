@@ -31,7 +31,7 @@ const useSignup = () => {
         window.location.replace('/vote');
       })
       .catch((err) => {
-        alert(err.data);
+        alert(err.response.data);
         dispatch({ type: '' });
       });
   };
@@ -61,7 +61,7 @@ const useSignin = () => {
         setCookie('JWTToken', res.data);
       })
       .catch((err) => {
-        alert(err.data);
+        alert(err.response.data);
       });
   };
 
