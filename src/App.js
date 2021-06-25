@@ -1,65 +1,82 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-
-
-var axios = require('axios');
+import SignIn, { Top, Tag, Container, TagImg } from './SignIn';
+import axios from 'axios';
 
 const Button = styled.button`
-  &:focus{
-    outline:none;
+  &:focus {
+    outline: none;
   }
-`
+`;
 function App() {
   const [data, setData] = useState([]);
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
+  let history = useHistory();
 
-  const loadCandidate = async () =>{
-    const result = await axios.get('http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates')
-    setData(result.data);
+  const loadCandidate = async () => {
+    const result = await axios.get(
+      'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates'
+    );
+    let data = result.data;
+    data.sort(function(a,b){
+      return b.voteCount - a.voteCount;
+    })
+    setData(data);
+  };
+
+  function logout(e){
+    removeCookie('LoginData');
+    history.push('/');
   }
-  async function ClickVote(key){
+  async function ClickVote(key) {
     console.log(cookies);
     const config = {
       method: 'get',
-      url:`http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${key}`,
-      headers:{
-        'Authorization' : `${cookies['LoginData']}`
-      }
-    }
+      url: `http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote?id=${key}`,
+      headers: {
+        Authorization: `${cookies['LoginData']}`,
+      },
+    };
     axios(config)
-    .then(function (response) {
-    console.log(response.data);
-    loadCandidate();
-    })
-    .catch(function (error) {
-    console.log(error.response.data);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        loadCandidate();
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
+      });
   }
 
   useEffect(() => {
-    loadCandidate() 
-  }, [data])
+    loadCandidate();
+  }, []);
 
   return (
     <Fragment>
-      <div >{
-        data.map(item => {
-        return <p key={item.id}> {item.name} : {item.voteCount} 
-            <Button onClick={() =>ClickVote(item.id)}>vote</Button>
-          </p>
+      <div>
+        {data.map((item) => {
+          return (
+            <p key={item.id}>
+              {' '}
+              {item.name} : {item.voteCount}
+              <Button onClick={() => ClickVote(item.id)}>vote</Button>
+            </p>
+          );
         })}
       </div>
       <div>
-        <Link to = {`/signup`}>
+        <Link to={`/signup`}>
           <Button> SignUp! </Button>
         </Link>
-        <Link to = {`/`}>
+        <Link to={`/`}>
           <Button> SignIn! </Button>
         </Link>
+        <Button onClick={logout}> Logout </Button>
       </div>
-    </Fragment> 
+    </Fragment>
   );
 }
 export default App;
+

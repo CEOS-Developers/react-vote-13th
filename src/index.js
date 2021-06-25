@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import SignUp from './signup'
-import SignIn from './SignIn'
+import SignUp from './signup';
+import SignIn from './SignIn';
 import {
   BrowserRouter as Router,
   Switch,

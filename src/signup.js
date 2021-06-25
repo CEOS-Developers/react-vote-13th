@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 var axios = require('axios');
@@ -28,11 +28,11 @@ export default function Signup() {
 
   useEffect(() => {
     setUserData({
-        "email" : email,
-        "password" : password,
-        "name" : name
+      email: email,
+      password: password,
+      name: name,
     });
-  },[email, password, name]);
+  }, [email, password, name]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -42,9 +42,9 @@ export default function Signup() {
     }
 
     setUserData({
-      "email": email,
-      "password": password,
-      "name": name,
+      email: email,
+      password: password,
+      name: name,
     });
 
     setEmail('');
@@ -107,10 +107,8 @@ export default function Signup() {
         placeholder="please enter your name"
         onChange={handleChangeInput_name}
       />
-      <Button type="submit">
-        전송
-      </Button>
-      <Link to = {`/vote`}>
+      <Button type="submit">전송</Button>
+      <Link to={`/vote`}>
         <Button> Back </Button>
       </Link>
     </Box>
