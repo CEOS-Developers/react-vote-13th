@@ -6,15 +6,15 @@ import {
   GET_VOTE_FAILURE,
   GET_VOTE_REQUEST,
   GET_VOTE_SUCCESS,
-  VoteContext,
-} from './Vote';
+  AppContext,
+} from './App.js';
 
 const Candidate = ({ rank }) => {
-  const { data, dispatch } = useContext(VoteContext);
+  const { data, dispatch } = useContext(AppContext);
   const [cookie, setCookie, removeCookie] = useCookies(['Token']);
-  const handleOnClick = async () => {
+  const history = useHistory();
+  const handleButtonClick = async () => {
     let aler;
-    console.log(cookie);
     dispatch({ type: GET_VOTE_REQUEST });
     try {
       const response = await axios.get(
@@ -27,7 +27,13 @@ const Candidate = ({ rank }) => {
       aler = response.data;
       dispatch({ type: GET_VOTE_SUCCESS });
     } catch (err) {
-      dispatch({ type: GET_VOTE_FAILURE, error: err.response });
+      dispatch({ type: GET_VOTE_FAILURE, error: err.response.data });
+      if (err.response.status === 401) {
+        alert('다시 로그인 해주세요.');
+        history.push('/');
+      } else {
+        alert('존재하지 않는 후보입니다.');
+      }
     }
     alert(aler);
   };
@@ -38,7 +44,7 @@ const Candidate = ({ rank }) => {
         <span>{rank + 1}위: </span>
         <span>{data[rank].name}</span>
         <span>[{data[rank].voteCount}표]</span>
-        <button onClick={handleOnClick}>투표</button>
+        <button onClick={handleButtonClick}>투표</button>
       </li>
     </>
   );
