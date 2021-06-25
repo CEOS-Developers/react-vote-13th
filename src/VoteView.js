@@ -3,8 +3,27 @@ import styled from 'styled-components';
 import axios from 'axios';
 import CandidateVotes from './Candidate';
 import { Link } from 'react-router-dom';
+import { Button } from './Candidate';
+
 const url =
   'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/candidates';
+
+function LoginoutButton({ isLogined, handleLogoutButton }) {
+  if (isLogined) {
+    return (
+      <UserButton onClick={handleLogoutButton} r={128} g={203} b={196}>
+        로그아웃
+      </UserButton>
+    );
+  } else
+    return (
+      <Link to="/signin">
+        <UserButton r={128} g={203} b={196}>
+          로그인
+        </UserButton>
+      </Link>
+    );
+}
 
 function VoteView({ loginCookie, removeLoginCookie }) {
   const [candidates, setCandidates] = useState([]);
@@ -27,9 +46,7 @@ function VoteView({ loginCookie, removeLoginCookie }) {
       try {
         const response = await axios.get(url);
         setCandidates(response.data);
-      } catch (e) {
-        alert(e);
-      }
+      } catch (e) {}
     };
 
     fetchCandidates();
@@ -42,23 +59,26 @@ function VoteView({ loginCookie, removeLoginCookie }) {
   return (
     <Container>
       <Title>CEOS 13기 FRONT 운영진 투표 &gt;.0</Title>
-      <Container>순위 이름 득표수</Container>
-      {sortedCandidates.map((candidate) => (
-        <CandidateVotes
-          candidate={candidate}
-          key={candidate.id}
-          flipVoteFlag={flipVoteFlag}
-          rank={sortedCandidates.indexOf(candidate) + 1}
-          loginCookie={loginCookie}
-        />
-      ))}
       <Link to="/signup">
-        <button>회원가입</button>
+        <UserButton r={207} g={216} b={220}>
+          회원가입
+        </UserButton>
       </Link>
-      <Link to="/signin">
-        <button>로그인</button>
-      </Link>
-      <button onClick={handleLogoutButton}>로그아웃</button>
+      <LoginoutButton
+        isLogined={isLogined}
+        handleLogoutButton={handleLogoutButton}
+      ></LoginoutButton>
+      <CandidateContainer>
+        {sortedCandidates.map((candidate) => (
+          <CandidateVotes
+            candidate={candidate}
+            key={candidate.id}
+            flipVoteFlag={flipVoteFlag}
+            rank={sortedCandidates.indexOf(candidate) + 1}
+            loginCookie={loginCookie}
+          />
+        ))}
+      </CandidateContainer>
     </Container>
   );
 }
@@ -68,4 +88,14 @@ export default VoteView;
 const Container = styled.div`
   text-align: center;
 `;
+
+const CandidateContainer = styled.div`
+  margin-top: 50px;
+`;
+
 const Title = styled.h1``;
+
+const UserButton = styled(Button)`
+  border: #00897b 1px solid;
+  color: #004d40;
+`;

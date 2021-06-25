@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const url =
   'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/signin';
@@ -25,22 +26,46 @@ export default function SignIn({ setLoginCookie }) {
         alert(response.data);
         setLoginCookie('loginCookie', response.data);
         history.push('/');
-      } catch (e) {
-        alert(e);
+      } catch (error) {
+        if (error.response.status === 404)
+          alert('로그인에 실패하였습니다. 잘못된 이메일 혹은 비밀번호');
+        else if (error.response.status === 400) alert('잘못된 요청입니다.');
+        else alert(error.response.data);
       }
-    } else alert('전부 입력해주세요');
+    } else alert('빈칸 없이 입력해주세요');
   }
   return (
-    <div>
-      <p>
+    <Container>
+      <Title>로그인</Title>
+      <InputText>
         email
-        <input value={email} onChange={(e) => handleChange(e, 0)} />
-      </p>
-      <p>
+        <InputForm value={email} onChange={(e) => handleChange(e, 0)} />
+      </InputText>
+      <InputText>
         password
-        <input value={password} onChange={(e) => handleChange(e, 1)} />
-      </p>
-      <button onClick={handleButtonCheck}>확인</button>
-    </div>
+        <InputForm value={password} onChange={(e) => handleChange(e, 1)} />
+      </InputText>
+      <button onClick={handleButtonCheck}>로그인하기</button>
+      <Link to="/signup">
+        <button r={207} g={216} b={220}>
+          회원가입
+        </button>
+      </Link>
+    </Container>
   );
 }
+const Container = styled.div`
+  text-align: center;
+`;
+const Title = styled.h1``;
+
+const InputForm = styled.input`
+  position: absolute;
+  left: 7vw;
+  z-index: 2;
+`;
+const InputText = styled.p`
+  text-align: left;
+  position: relative;
+  left: 40vw;
+`;

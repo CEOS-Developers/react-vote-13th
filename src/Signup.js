@@ -28,23 +28,44 @@ export default function SignUp() {
         });
         alert(response.data);
         history.push('/signin');
-      } catch (e) {
-        alert(e);
+      } catch (error) {
+        if (error.response.status === 409) alert('이미 가입된 이메일입니다.');
+        else if (error.response.status === 400) alert('잘못된 요청입니다.');
+        else alert(error.response.data);
       }
-    } else alert('전부 입력해주세요');
+    } else alert('빈칸 없이 입력해주세요');
   }
   return (
-    <div>
-      <p>
-        email <input value={email} onChange={(e) => handleChange(e, 0)} />
-      </p>
-      <p>
-        pw <input value={password} onChange={(e) => handleChange(e, 1)} />
-      </p>
-      <p>
-        name <input value={name} onChange={(e) => handleChange(e, 2)} />
-      </p>
+    <Container>
+      <Title>회원가입</Title>
+      <InputText>
+        email
+        <InputForm value={email} onChange={(e) => handleChange(e, 0)} />
+      </InputText>
+      <InputText>
+        pw
+        <InputForm value={password} onChange={(e) => handleChange(e, 1)} />
+      </InputText>
+      <InputText>
+        name <InputForm value={name} onChange={(e) => handleChange(e, 2)} />
+      </InputText>
       <button onClick={checkButtonHandle}>확인</button>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  text-align: center;
+`;
+const Title = styled.h1``;
+
+const InputForm = styled.input`
+  position: absolute;
+  left: 7vw;
+  z-index: 2;
+`;
+const InputText = styled.p`
+  text-align: left;
+  position: relative;
+  left: 40vw;
+`;
