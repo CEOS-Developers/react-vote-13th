@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -23,6 +23,7 @@ const HeaderLink = styled.p`
 
 function Vote() {
   const [userList, setUserList] = useState([]);
+  const history = useHistory();
 
   async function load() {
     const result = await axios.get(
@@ -32,19 +33,28 @@ function Vote() {
   }
 
   async function vote(id) {
-    const result = await axios.get(
-      'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote',
-      {
-        params: { id },
-        headers: { Authorization: localStorage.getItem('jwt') },
-      }
-    );
-    for (const user of userList) {
-      if (user.id == id) {
-        user.voteCount++;
-      }
+    console.log(localStorage.getItem('jwt'));
+    if (localStorage.getItem('jwt') == null) {
+      alert('로그인을 해주세요');
+      return;
     }
-    sortUserList(userList);
+    try {
+      await axios.get(
+        'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote',
+        {
+          params: { id },
+          headers: { Authorization: localStorage.getItem('jwt') },
+        }
+      );
+      for (const user of userList) {
+        if (user.id == id) {
+          user.voteCount++;
+        }
+      }
+      sortUserList(userList);
+    } catch (e) {
+      alert('투표를 실패하였습니다.');
+    }
   }
 
   function sortUserList(list) {
@@ -60,7 +70,8 @@ function Vote() {
   }, []);
 
   const logout = () => {
-    localStorage.setItem('jwt', null);
+    localStorage.removeItem('jwt');
+    history.push('/');
   };
 
   const header =
