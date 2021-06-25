@@ -21,7 +21,7 @@ function App() {
         <Route
           path="/"
           exact
-          render={(props) => <Vote {...props} jwt={jwt} />}
+          render={(props) => <Vote {...props} jwt={jwt} setJwt={setJwt} />}
         />
       </Switch>
     </Router>

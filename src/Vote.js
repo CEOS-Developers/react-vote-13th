@@ -21,7 +21,7 @@ const HeaderLink = styled.p`
   margin-left: 10px;
 `;
 
-function Vote({ jwt }) {
+function Vote({ jwt, setJwt }) {
   const [userList, setUserList] = useState([]);
 
   async function load() {
@@ -36,6 +36,7 @@ function Vote({ jwt }) {
       'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote',
       {
         params: { id },
+        headers: { Authorization: jwt },
       }
     );
     for (const user of userList) {
@@ -58,8 +59,12 @@ function Vote({ jwt }) {
     load();
   }, []);
 
-  return (
-    <StyledContainer>
+  const logout = () => {
+    setJwt(null);
+  };
+
+  const header =
+    jwt == null ? (
       <HeaderContainer>
         <Link to={'/signin'}>
           <HeaderLink>로그인</HeaderLink>
@@ -68,6 +73,15 @@ function Vote({ jwt }) {
           <HeaderLink>회원가입</HeaderLink>
         </Link>
       </HeaderContainer>
+    ) : (
+      <HeaderContainer>
+        <p onClick={logout}>로그아웃</p>
+      </HeaderContainer>
+    );
+
+  return (
+    <StyledContainer>
+      {header}
       <h1>12기 프론트엔드 개발팀장 투표 ^.^</h1>
       {userList.map((user) => {
         return (
