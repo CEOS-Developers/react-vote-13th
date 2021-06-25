@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import Vote from './Vote';
+import Signup from './Signup';
 
 function App() {
   const [jwt, setJwt] = useState(null);
@@ -11,6 +12,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/signup" component={Signup} />
         <Route
           path="/"
           exact
