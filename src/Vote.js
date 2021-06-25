@@ -21,7 +21,7 @@ const HeaderLink = styled.p`
   margin-left: 10px;
 `;
 
-function Vote({ jwt, setJwt }) {
+function Vote() {
   const [userList, setUserList] = useState([]);
 
   async function load() {
@@ -36,7 +36,7 @@ function Vote({ jwt, setJwt }) {
       'http://ec2-13-209-5-166.ap-northeast-2.compute.amazonaws.com:8000/api/vote',
       {
         params: { id },
-        headers: { Authorization: jwt },
+        headers: { Authorization: localStorage.getItem('jwt') },
       }
     );
     for (const user of userList) {
@@ -60,11 +60,11 @@ function Vote({ jwt, setJwt }) {
   }, []);
 
   const logout = () => {
-    setJwt(null);
+    localStorage.setItem('jwt', null);
   };
 
   const header =
-    jwt == null ? (
+    localStorage.getItem('jwt') == null ? (
       <HeaderContainer>
         <Link to={'/signin'}>
           <HeaderLink>로그인</HeaderLink>

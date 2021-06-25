@@ -8,21 +8,12 @@ import Signup from './Signup';
 import Signin from './Signin';
 
 function App() {
-  const [jwt, setJwt] = useState(null);
-
   return (
     <Router>
       <Switch>
         <Route path="/signup" component={Signup} />
-        <Route
-          path="/signin"
-          render={(props) => <Signin {...props} setJwt={setJwt} />}
-        />
-        <Route
-          path="/"
-          exact
-          render={(props) => <Vote {...props} jwt={jwt} setJwt={setJwt} />}
-        />
+        <Route path="/signin" component={Signin} />
+        <Route path="/" exact component={Vote} />
       </Switch>
     </Router>
   );

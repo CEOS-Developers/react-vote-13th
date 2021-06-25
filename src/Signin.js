@@ -62,7 +62,7 @@ function Signin({ setJwt }) {
       );
 
       if (result) {
-        setJwt(result.data);
+        localStorage.setItem('jwt', result.data);
         history.push('/');
       }
     } catch (e) {
