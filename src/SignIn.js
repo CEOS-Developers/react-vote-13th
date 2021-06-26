@@ -138,7 +138,18 @@ const ButtonSignUp = styled.button`
   margin-top: 15px;
 `;
 
-export { Top, Tag, Container, TagImg };
+const RightBottomTag = () => {
+  return (
+    <Tag>
+      {/* <TagLabel>CEOS</TagLabel> */}
+      <TagImg src={process.env.PUBLIC_URL + './design/tag_2021.png'} />
+      <TagImg src={process.env.PUBLIC_URL + './design/tag_front.png'} />
+      <TagImg src={process.env.PUBLIC_URL + './design/tag_ceos.png'} />
+    </Tag>
+  );
+};
+
+export { Top, Container, RightBottomTag };
 
 export default function SignIn() {
   const [ID, setID] = useState();
@@ -149,8 +160,8 @@ export default function SignIn() {
 
   useEffect(() => {
     setLoginData({
-      "email": ID,
-      "password": PW,
+      email: ID,
+      password: PW,
     });
   }, [ID, PW]); //setState 함수가 비동기로 걸리는데, 이가 왜 문제인지 알아보기
 
@@ -191,11 +202,37 @@ export default function SignIn() {
     setPW(e.target.value);
   }
 
+  const LoginForm = () => {
+    return (
+      <Form onSubmit={handleSubmit}>
+        <Label>ID</Label>
+        <Input type="email" value={ID} onChange={handleChangeInput_ID} />
+        <Label>Password</Label>
+        <Input type="password" value={PW} onChange={handleChangeInput_PW} />
+        <Button type="submit"> sign in ! </Button>
+      </Form>
+    );
+  };
+
+  const ClickToSignUp = () => {
+    return (
+      <Form>
+        <LabelBottom>* if you don't have an account</LabelBottom>
+        <LabelBottom>&nbsp;&nbsp;press the button below</LabelBottom>
+        <Link to={`/signup`}>
+          <ButtonSignUp> create account </ButtonSignUp>
+        </Link>
+      </Form>
+    );
+  };
+
   return (
     <Top>
       <Container>
         <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
         <Box>
+          {/* <LoginForm />
+          <ClickToSignUp /> */}
           <Form onSubmit={handleSubmit}>
             <Label>ID</Label>
             <Input type="email" value={ID} onChange={handleChangeInput_ID} />
@@ -212,12 +249,7 @@ export default function SignIn() {
           </Form>
         </Box>
       </Container>
-      <Tag>
-        {/* <TagLabel>CEOS</TagLabel> */}
-        <TagImg src={process.env.PUBLIC_URL + './design/tag_2021.png'} />
-        <TagImg src={process.env.PUBLIC_URL + './design/tag_front.png'} />
-        <TagImg src={process.env.PUBLIC_URL + './design/tag_ceos.png'} />
-      </Tag>
+      <RightBottomTag/>
     </Top>
   );
 }

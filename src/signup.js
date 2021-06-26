@@ -20,6 +20,7 @@ const Button = styled.button`
   width: 50px;
 `;
 
+
 export default function Signup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
