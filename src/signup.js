@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import SignIn, {
   Top,
@@ -106,23 +106,39 @@ export default function Signup() {
   function handleChangeInput_name(e) {
     setName(e.target.value);
   }
-  return (
-    <Top>
-      <Container>
-        <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
-        <Form onSubmit={handleSubmit}>
-          <LabelBottom>Email</LabelBottom>
+
+  // function selectEmail(e) {
+  //   var $ele = $(ele);
+  //   var $email2 = $('input[name=email2]');
+  //   if ($ele.val() == '1') {
+  //     $email2.attr('readonly', false);
+  //     $email2.val('');
+  //   } else {
+  //     $email2.attr('readonly', true);
+  //     $email2.val($ele.val());
+  //   }
+  // }
+  
+  const CreateAccountForm = () => {
+    return(
+      <Fragment>
+        <LabelBottom>Email</LabelBottom>
           <Input
             type="email"
             value={email}
             placeholder="please enter a email"
             onChange={handleChangeInput_email}
           >
-            {/* @ <select>
-                <option>naver.com</option>
-                <option>gmail.com</option>
-                <option>daum.net</option>
-                </select> */}
+            {/* <select name="select_email" onChange={selectEmail(this)}>
+              {' '}
+              <option value="" selected>
+                선택하세요
+              </option>{' '}
+              <option value="naver.com">naver.com</option>{' '}
+              <option value="gmail.com">gmail.com</option>{' '}
+              <option value="hanmail.com">hanmail.com</option>{' '}
+              <option value="1">직접입력</option>{' '}
+            </select> */}
           </Input>
           <LabelBottom>Password</LabelBottom>
           <Input
@@ -139,6 +155,15 @@ export default function Signup() {
             onChange={handleChangeInput_name}
           />
           <ButtonSignUp type="submit"> submit ! </ButtonSignUp>
+      </Fragment>
+    )
+  }
+  return (
+    <Top>
+      <Container>
+        <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
+        <Form onSubmit={handleSubmit}>
+          {CreateAccountForm()}
           <Link to={`/`}>
             <ButtonGoBack> * click here to go back </ButtonGoBack>
           </Link>

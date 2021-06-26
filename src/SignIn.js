@@ -98,6 +98,7 @@ const Form = styled.form`
 const Input = styled.input`
   width: 200px;
   margin-bottom: 3px;
+
   border: none;
   background: transparent;
   border-bottom: 0.8px solid;
@@ -149,7 +150,15 @@ const RightBottomTag = () => {
   );
 };
 
-export { Top, Container, IndexImg, RightBottomTag, LabelBottom, Input, ButtonSignUp };
+export {
+  Top,
+  Container,
+  IndexImg,
+  RightBottomTag,
+  LabelBottom,
+  Input,
+  ButtonSignUp,
+};
 
 export default function SignIn() {
   const [ID, setID] = useState();
@@ -232,11 +241,11 @@ export default function SignIn() {
       <Container>
         <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
         <Box>
-          <LoginForm />
-          <ClickToSignUp />
+          {LoginForm()}
+          {ClickToSignUp()}
         </Box>
       </Container>
-      <RightBottomTag/>
+      <RightBottomTag />
     </Top>
   );
 }
