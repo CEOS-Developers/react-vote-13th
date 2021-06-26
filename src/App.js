@@ -134,7 +134,7 @@ function App() {
         <Label> Your name here </Label>
         <ForSpace />
         <Button onClick={logout}> * press here to logout </Button>
-        {/* <Label> {SignUp.userData.name} </Label> */}
+        {/* <Label> {cookies.LoginData.email} </Label> */}
       </DataBar>
     );
   };

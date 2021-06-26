@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import SignIn, {
+  Top,
+  Container,
+  IndexImg,
+  RightBottomTag,
+  Box,
+  Label,
+} from './SignIn';
 
 var axios = require('axios');
-
-const Box = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
 
 const Input = styled.input`
   width: 200px;
@@ -20,12 +21,12 @@ const Button = styled.button`
   width: 50px;
 `;
 
-
 export default function Signup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [name, setName] = useState();
   const [userData, setUserData] = useState([]);
+  let history = useHistory();
 
   useEffect(() => {
     setUserData({
@@ -48,6 +49,8 @@ export default function Signup() {
       name: name,
     });
 
+    console.log(userData);
+
     setEmail('');
     setPassword('');
     setName('');
@@ -62,6 +65,7 @@ export default function Signup() {
     axios(config)
       .then(function (response) {
         console.log(response.data);
+        //history.push('/');
       })
       .catch(function (error) {
         console.log(error.response.data);
@@ -80,38 +84,41 @@ export default function Signup() {
     setName(e.target.value);
   }
   return (
-    <Box onSubmit={handleSubmit}>
-      <label>email</label>
-      <Input
-        type="email"
-        value={email}
-        placeholder="please enter a email"
-        onChange={handleChangeInput_email}
-      >
-        {/* @ <select>
+    <Top>
+      <Container>
+        <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
+        <Box onSubmit={handleSubmit}>
+          <Label>email</Label>
+          <Input
+            type="email"
+            value={email}
+            placeholder="please enter a email"
+            onChange={handleChangeInput_email}
+          >
+            {/* @ <select>
                 <option>naver.com</option>
                 <option>gmail.com</option>
                 <option>daum.net</option>
                 </select> */}
-      </Input>
-      <label>password</label>
-      <Input
-        type="password"
-        value={password}
-        placeholder="please enter a password"
-        onChange={handleChangeInput_pw}
-      />
-      <label>name</label>
-      <Input
-        type="text"
-        value={name}
-        placeholder="please enter your name"
-        onChange={handleChangeInput_name}
-      />
-      <Button type="submit">전송</Button>
-      <Link to={`/vote`}>
-        <Button> Back </Button>
-      </Link>
-    </Box>
+          </Input>
+          <Label>password</Label>
+          <Input
+            type="password"
+            value={password}
+            placeholder="please enter a password"
+            onChange={handleChangeInput_pw}
+          />
+          <Label>name</Label>
+          <Input
+            type="text"
+            value={name}
+            placeholder="please enter your name"
+            onChange={handleChangeInput_name}
+          />
+          <Button type="submit">전송</Button>
+        </Box>
+      </Container>
+      <RightBottomTag />
+    </Top>
   );
 }

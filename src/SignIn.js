@@ -149,7 +149,7 @@ const RightBottomTag = () => {
   );
 };
 
-export { Top, Container, RightBottomTag };
+export { Top, Container, IndexImg, RightBottomTag, Box, Label };
 
 export default function SignIn() {
   const [ID, setID] = useState();
@@ -171,6 +171,7 @@ export default function SignIn() {
       window.alert('값을 입력해주세요');
       return false;
     }
+    
     console.log(loginData);
 
     setID('');
