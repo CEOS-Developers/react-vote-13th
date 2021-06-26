@@ -3,7 +3,7 @@ import Vote from './Vote.js';
 import LogIn from './LogIn';
 import SignUp from './SignUp.js';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const AppContext = createContext({
   data: [],
@@ -172,5 +172,3 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `;
-
-const AppContainer = styled.div``;
