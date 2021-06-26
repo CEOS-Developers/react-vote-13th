@@ -59,7 +59,7 @@ const TagLabel = styled.label`
 `;
 
 const TagImg = styled.img`
-  width: 0.9em; //14px이 적당
+  width: 0.9em; 
   margin-right: 0.7vw;
   margin-bottom: 30px;
   margin-top: 60px;
@@ -117,10 +117,8 @@ const Button = styled.button`
   border: none;
   margin-top: 10px;
   margin-left: 0;
-  /* margin-bottom: 15px; */
   padding-left: 0;
   text-align: left;
-  /* border-radius: 15px; */
 `;
 
 const ButtonSignUp = styled.button`
@@ -142,7 +140,6 @@ const ButtonSignUp = styled.button`
 const RightBottomTag = () => {
   return (
     <Tag>
-      {/* <TagLabel>CEOS</TagLabel> */}
       <TagImg src={process.env.PUBLIC_URL + './design/tag_2021.png'} />
       <TagImg src={process.env.PUBLIC_URL + './design/tag_front.png'} />
       <TagImg src={process.env.PUBLIC_URL + './design/tag_ceos.png'} />

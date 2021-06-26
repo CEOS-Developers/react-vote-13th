@@ -1,12 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import SignIn, { Top, RightBottomTag } from './SignIn';
-import SignUp from './signup';
 import axios from 'axios';
-
-//디자인, 폰트, 정렬, 이름, 추가 기능
 
 const TopImg = styled.img`
   margin-bottom: 1vh;
@@ -61,7 +58,7 @@ const Button = styled.button`
 `;
 
 const LabelForList = styled.label`
-  font-family: serif; //폰트 새로 가져오기
+  font-family: Georgia, 'Times New Roman', Times, serif; //폰트 새로 가져오기
   font-weight: bold;
   margin-left: 5px;
   margin-bottom: 5px;
@@ -118,7 +115,7 @@ function App() {
             <p key={item.id}>
               {' '}
               <LabelForList>
-                {item.name} : {item.voteCount}
+                {item.name} &nbsp;&nbsp;:&nbsp;&nbsp; {item.voteCount}&nbsp;&nbsp;
               </LabelForList>
               <Button onClick={() => ClickVote(item.id)}>vote</Button>
             </p>
@@ -138,6 +135,7 @@ function App() {
       </DataBar>
     );
   };
+
   return (
     <Top>
       <Container>
@@ -145,7 +143,7 @@ function App() {
         <UserDataBar />
         <VoteList />
       </Container>
-      <RightBottomTag/>
+      <RightBottomTag />
     </Top>
   );
 }

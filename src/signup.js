@@ -107,57 +107,35 @@ export default function Signup() {
     setName(e.target.value);
   }
 
-  // function selectEmail(e) {
-  //   var $ele = $(ele);
-  //   var $email2 = $('input[name=email2]');
-  //   if ($ele.val() == '1') {
-  //     $email2.attr('readonly', false);
-  //     $email2.val('');
-  //   } else {
-  //     $email2.attr('readonly', true);
-  //     $email2.val($ele.val());
-  //   }
-  // }
-  
   const CreateAccountForm = () => {
-    return(
+    return (
       <Fragment>
         <LabelBottom>Email</LabelBottom>
-          <Input
-            type="email"
-            value={email}
-            placeholder="please enter a email"
-            onChange={handleChangeInput_email}
-          >
-            {/* <select name="select_email" onChange={selectEmail(this)}>
-              {' '}
-              <option value="" selected>
-                선택하세요
-              </option>{' '}
-              <option value="naver.com">naver.com</option>{' '}
-              <option value="gmail.com">gmail.com</option>{' '}
-              <option value="hanmail.com">hanmail.com</option>{' '}
-              <option value="1">직접입력</option>{' '}
-            </select> */}
-          </Input>
-          <LabelBottom>Password</LabelBottom>
-          <Input
-            type="password"
-            value={password}
-            placeholder="please enter a password"
-            onChange={handleChangeInput_pw}
-          />
-          <LabelBottom>Name</LabelBottom>
-          <Input
-            type="text"
-            value={name}
-            placeholder="please enter your name"
-            onChange={handleChangeInput_name}
-          />
-          <ButtonSignUp type="submit"> submit ! </ButtonSignUp>
+        <Input
+          type="email"
+          value={email}
+          placeholder="please enter a email"
+          onChange={handleChangeInput_email}
+        />
+        <LabelBottom>Password</LabelBottom>
+        <Input
+          type="password"
+          value={password}
+          placeholder="please enter a password"
+          onChange={handleChangeInput_pw}
+        />
+        <LabelBottom>Name</LabelBottom>
+        <Input
+          type="text"
+          value={name}
+          placeholder="please enter your name"
+          onChange={handleChangeInput_name}
+        />
+        <ButtonSignUp type="submit"> submit ! </ButtonSignUp>
       </Fragment>
-    )
-  }
+    );
+  };
+
   return (
     <Top>
       <Container>
