@@ -149,7 +149,7 @@ const RightBottomTag = () => {
   );
 };
 
-export { Top, Container, IndexImg, RightBottomTag, Box, Label };
+export { Top, Container, IndexImg, RightBottomTag, LabelBottom, Input, ButtonSignUp };
 
 export default function SignIn() {
   const [ID, setID] = useState();
@@ -171,7 +171,7 @@ export default function SignIn() {
       window.alert('값을 입력해주세요');
       return false;
     }
-    
+
     console.log(loginData);
 
     setID('');
@@ -232,22 +232,8 @@ export default function SignIn() {
       <Container>
         <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
         <Box>
-          {/* <LoginForm />
-          <ClickToSignUp /> */}
-          <Form onSubmit={handleSubmit}>
-            <Label>ID</Label>
-            <Input type="email" value={ID} onChange={handleChangeInput_ID} />
-            <Label>Password</Label>
-            <Input type="password" value={PW} onChange={handleChangeInput_PW} />
-            <Button type="submit"> sign in ! </Button>
-          </Form>
-          <Form>
-            <LabelBottom>* if you don't have an account</LabelBottom>
-            <LabelBottom>&nbsp;&nbsp;press the button below</LabelBottom>
-            <Link to={`/signup`}>
-              <ButtonSignUp> create account </ButtonSignUp>
-            </Link>
-          </Form>
+          <LoginForm />
+          <ClickToSignUp />
         </Box>
       </Container>
       <RightBottomTag/>

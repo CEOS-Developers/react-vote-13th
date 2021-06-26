@@ -1,31 +1,54 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import SignIn, {
   Top,
   Container,
   IndexImg,
   RightBottomTag,
-  Box,
-  Label,
+  LabelBottom,
+  Input,
 } from './SignIn';
 
 var axios = require('axios');
 
-const Input = styled.input`
-  width: 200px;
+const Form = styled.form`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 38vh;
 `;
 
-const Button = styled.button`
-  margin-top: 5px;
-  width: 50px;
+const ButtonSignUp = styled.button`
+  font-family: serif;
+  font-weight: bold;
+  color: white;
+  background: black;
+  border-radius: 15px;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 80px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  border: none;
+  margin-top: 15px;
+`;
+
+const ButtonGoBack = styled.button`
+  margin-top: 5vh;
+  font-family: serif;
+  font-weight: bold;
+  background: transparent;
+  border: none;
 `;
 
 export default function Signup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [name, setName] = useState();
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   let history = useHistory();
 
   useEffect(() => {
@@ -65,7 +88,7 @@ export default function Signup() {
     axios(config)
       .then(function (response) {
         console.log(response.data);
-        //history.push('/');
+        history.push('/');
       })
       .catch(function (error) {
         console.log(error.response.data);
@@ -87,8 +110,8 @@ export default function Signup() {
     <Top>
       <Container>
         <IndexImg src={process.env.PUBLIC_URL + './design/index_mark.png'} />
-        <Box onSubmit={handleSubmit}>
-          <Label>email</Label>
+        <Form onSubmit={handleSubmit}>
+          <LabelBottom>Email</LabelBottom>
           <Input
             type="email"
             value={email}
@@ -101,22 +124,25 @@ export default function Signup() {
                 <option>daum.net</option>
                 </select> */}
           </Input>
-          <Label>password</Label>
+          <LabelBottom>Password</LabelBottom>
           <Input
             type="password"
             value={password}
             placeholder="please enter a password"
             onChange={handleChangeInput_pw}
           />
-          <Label>name</Label>
+          <LabelBottom>Name</LabelBottom>
           <Input
             type="text"
             value={name}
             placeholder="please enter your name"
             onChange={handleChangeInput_name}
           />
-          <Button type="submit">전송</Button>
-        </Box>
+          <ButtonSignUp type="submit"> submit ! </ButtonSignUp>
+          <Link to={`/`}>
+            <ButtonGoBack> * click here to go back </ButtonGoBack>
+          </Link>
+        </Form>
       </Container>
       <RightBottomTag />
     </Top>
