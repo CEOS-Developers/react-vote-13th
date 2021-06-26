@@ -23,19 +23,54 @@ const Candidates = (props) => {
       );
     });
 
-  return <>{list}</>;
+  return <ListContainer>{list}</ListContainer>;
 };
+
+const ListContainer = styled.ul`
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+`;
 
 const SingleCandidateItem = styled.li`
   display: flex;
   justify-content: space-between;
-  width: 300px;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid royalblue;
+  width: 400px;
   height: 50px;
   margin: 10px;
+
+  &:nth-child(1) {
+    border-color: gold;
+
+    h1 {
+      color: gold;
+    }
+  }
+
+  &:nth-child(2) {
+    border-color: silver;
+
+    h1 {
+      color: silver;
+    }
+  }
+
+  &:nth-child(3) {
+    border-color: sienna;
+
+    h1 {
+      color: sienna;
+    }
+  }
 `;
 
-const CandidateRank = styled.div`
-  font-size: 12px;
+const CandidateRank = styled.h1`
+  font-size: 25px;
+  margin-left: 20px;
+  color: royalblue;
 `;
 
 const CandidateName = styled.div`
@@ -47,9 +82,22 @@ const CandidateVotes = styled.div`
 `;
 
 const VoteButton = styled.button`
-  width: 20px;
-  font-size: 12px;
-  border-radius: 9999px;
+  width: 45px;
+  height: 40px;
+  text-align: center;
+  color: royalblue;
+  background-color: white;
+  font-weight: bolder;
+  border: 2px solid royalblue;
+  font-size: 15px;
+  border-radius: 10px;
+  margin-right: 5px;
+  transition: all 0.15s ease-in;
+
+  &:hover {
+    color: white;
+    background-color: royalblue;
+  }
 
   &:focus {
     outline: none;
