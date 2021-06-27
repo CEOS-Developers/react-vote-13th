@@ -43,7 +43,11 @@ export default function SignIn({ setLoginCookie }) {
       </InputText>
       <InputText>
         password
-        <InputForm value={password} onChange={(e) => handleChange(e, 1)} />
+        <InputForm
+          value={password}
+          onChange={(e) => handleChange(e, 1)}
+          type="password"
+        />
       </InputText>
       <button onClick={handleButtonCheck}>로그인하기</button>
       <Link to="/signup">
